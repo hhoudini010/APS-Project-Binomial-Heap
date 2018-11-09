@@ -1,10 +1,11 @@
 #include <iostream>
+#define lli long long int
 
 using namespace std ;
 
 struct node
 {
-	int key,degree ;
+	lli key,degree ;
 	node *sibling,*child,*parent ;
 } ;
 
@@ -16,7 +17,7 @@ void Binomial_link(node *y, node *z)
 	++(z->degree) ;	
 }
 
-node *new_node(int data)
+node *new_node(lli data)
 {
 	node *h = (node *) malloc(sizeof(node)) ;
 	h->sibling = NULL ;
@@ -114,7 +115,7 @@ node *Binomial_heap_union(node *h1, node *h2)
 	return h ;
 }
 
-node *insert(node *head, int data)
+node *insert(node *head, lli data)
 {
 	node *head1 = new_node(data) ;
 	return Binomial_heap_union(head,head1) ;
@@ -172,7 +173,7 @@ node *Binomial_heap_extract_min( node *head)
 		return head ;
 	}
 
-	int min_value = temp->key ;
+	lli min_value = temp->key ;
 	temp = temp->sibling ;
 
 	while(temp)
@@ -218,7 +219,7 @@ node *Binomial_heap_extract_min( node *head)
 
 }
 
-node *Binomial_heap_decrease_key(node *head, node *nod, int k)
+node *Binomial_heap_decrease_key(node *head, node *nod, lli k)
 {
 	if(k > nod->key)
 		cout<<endl<<"Error : New key is greater than current key"<<endl ;
@@ -257,26 +258,90 @@ node *Binomial_heap_delete(node *head,node *nod)
 
 int main(int argc, char const *argv[])
 {
-	node *head ;
+	node *head,*head1 ;
 
-	head = insert(head,10) ;
-	head = insert(head,20) ;
-	head = insert(head,30) ;
+	// head = insert(head,10) ;
+	// head = insert(head,20) ;
+	// head = insert(head,30) ;
 
-	head = insert(head,40) ;
-	head = insert(head,50) ;
-	head = insert(head,60) ;
-	head = insert(head,70) ;
-	head = insert(head,80) ;
-	head = insert(head,90) ;
-	head = insert(head,100) ;
-	head = insert(head,110) ;
-	head = insert(head,120) ;
-	head = insert(head,130) ;
+	// head = insert(head,40) ;
+	// head = insert(head,50) ;
+	// head = insert(head,60) ;
+	// head = insert(head,70) ;
+	// head = insert(head,80) ;
+	// head = insert(head,90) ;
+	// head = insert(head,100) ;
+	// head = insert(head,110) ;
+	// head = insert(head,120) ;
+	// head = insert(head,130) ;
 
-	head = Binomial_heap_decrease_key(head,head,1234234) ;
+	// head = Binomial_heap_decrease_key(head,head,1234234) ;
 
-	printree(head) ;
+//	printree(head) ;
+
+
+	clock_t t;
+	double t1 = 0,t2 = 0,t3 = 0,t4 = 0,t5 = 0;
+
+	
+
+		for(lli i = 0 ; i < 100000; i++)
+		{	
+		//cin>>value ;
+		head = insert(head,i) ;
+		head1 = insert(head1,10000000+i+1) ;
+
+
+
+		//cout<<i<<"\n" ;
+		}
+
+ 	t = clock() ;
+
+ 	head = Binomial_heap_union(head,head1) ;
+ 	t =clock() - t ;
+
+ 	cout<<"Merge "<<t<<"\n" ;
+
+ 	double time= (double) t ;
+ 	t1+=time ;
+
+ 	t = clock() ;
+ 	head = insert(head,10000000010101) ;
+ 	t = clock() - t ;
+
+ 	cout<<"Insert "<<t<<"\n" ;
+	 time = (double) t ;
+	 t2+=time ;
+
+
+	t = clock() ;
+
+	head = Binomial_heap_extract_min(head) ;
+	t =clock() - t ;
+
+	cout<<"Extract "<<t<<"\n" ;
+
+
+	time = (double) t ;
+	t3+=time ;
+
+
+	t = clock() ;
+
+	head = Binomial_heap_delete(head,head) ;
+	t =clock() - t ;
+	cout<<"Delete "<<t<<"\n" ;
+
+	time = (double) t ;
+
+	t4+=time ;
+
+
+
+cout<<"Delete "<<t4<<"\n" ;
+
+// cout<<endl<<endl<<endl ;
 
 	return 0;
 }
