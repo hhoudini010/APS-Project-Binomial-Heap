@@ -181,7 +181,7 @@ node *Binomial_heap_extract_min( node *head)
 		node *temp = head ;
 		head = reverse_children(head->child) ;
 		vec.push_back(temp) ;
-		delete(temp) ;
+		//delete(temp) ;
 		return head ;
 	}
 
@@ -205,7 +205,7 @@ node *Binomial_heap_extract_min( node *head)
 		head = head->sibling ;
 		head = Binomial_heap_union(head,head1) ;
 		vec.push_back(temp) ;
-		delete(temp) ;
+		//delete(temp) ;
 		return head;
 	}
 
@@ -228,7 +228,7 @@ node *Binomial_heap_extract_min( node *head)
 
 	head = Binomial_heap_union(head,head1) ;
 	vec.push_back(x);
-	delete(x) ;
+	//delete(x) ;
 	return head ;
 
 }
@@ -309,25 +309,31 @@ int main(int argc, char const *argv[])
 	cout<<"Enter the number of vertices in the graph (atleast 2): "<<endl ;
 	cin>>v ;
 
-	node *head ;
+	node *head = NULL;
 
 	vector<pair<lli, lli> > adj[v] ;
 	
 
-	addEdge(adj, 0, 1, 4); 
-    addEdge(adj, 0, 7, 8); 
-    addEdge(adj, 1, 2, 8); 
-    addEdge(adj, 1, 7, 11); 
-    addEdge(adj, 2, 3, 7); 
-    addEdge(adj, 2, 8, 2); 
-    addEdge(adj, 2, 5, 4); 
-    addEdge(adj, 3, 4, 9); 
-    addEdge(adj, 3, 5, 14); 
-    addEdge(adj, 4, 5, 10); 
-    addEdge(adj, 5, 6, 2); 
-    addEdge(adj, 6, 7, 1); 
-    addEdge(adj, 6, 8, 6); 
-    addEdge(adj, 7, 8, 7); 
+	// addEdge(adj, 0, 1, 4); 
+ //    addEdge(adj, 0, 7, 8); 
+ //    addEdge(adj, 1, 2, 8); 
+ //    addEdge(adj, 1, 7, 11); 
+ //    addEdge(adj, 2, 3, 7); 
+ //    addEdge(adj, 2, 8, 2); 
+ //    addEdge(adj, 2, 5, 4); 
+ //    addEdge(adj, 3, 4, 9); 
+ //    addEdge(adj, 3, 5, 14); 
+ //    addEdge(adj, 4, 5, 10); 
+ //    addEdge(adj, 5, 6, 2); 
+ //    addEdge(adj, 6, 7, 1); 
+ //    addEdge(adj, 6, 8, 6); 
+ //    addEdge(adj, 7, 8, 7); 
+
+
+    addEdge(adj,0,1,5) ;
+    addEdge(adj,1,2,6) ;
+    addEdge(adj,2,3,2) ;
+    addEdge(adj,0,2,15) ;
   
 	head = insert(head,0,0)  ;
 
@@ -338,26 +344,6 @@ int main(int argc, char const *argv[])
 	}
 
 	printree(head) ;
-
-
-	cout<<endl ;
-	cout<<endl ;
-
-
-
-	//int len = adj.size() ;
-
-	// for(int i = 0 ; i < v; i++)
-	// {
-	// 	for(auto j : inh[i])
-	// 		cout<<i<<" "<<j.first<<","<<j.second->nno<<"         ";
-	// 	cout<<endl ;
-	// }
-
-
-
-
-
 
 
 	
@@ -371,47 +357,16 @@ int main(int argc, char const *argv[])
 
 
 		 cout<<endl<<temp->key<<" "<<temp->nno<<endl ;
-		// if( inh[temp->nno].beg->second )
 	     inh[temp->nno].begin()->first = 0 ;
 
 	   
 	 	   for(auto i : adj[temp->nno])
-		  {
-	 	 		// cout<<"adj"<<i.first<<endl ;
-	 	 		// cout<<"Pointing to : "<<inh[i.first].begin()->second->nno<<endl;
-	// 	 		cout<<"Hello"<<endl ;
-		 		
-	// 	 		auto b = inh[i.first].begin() ;
-	 			if(inh[i.first].begin()->first == 1 && (temp->key + i.second) < (inh[i.first].begin()->second)->key ){
-					//cout<<"Hey" ;
-
-					// cout<<"Before d key "<<endl ;
-					// for(int i = 0 ; i < v; i++)
-					// {
-					// 	for(auto j : inh[i])
-					// 		cout<<i<<" "<<j.first<<","<<j.second->nno<<"         ";
-					// 	cout<<endl ;
-					// }
-
-					// cout<<"End b pri"<<endl ;
- 
+	 			if(inh[i.first].begin()->first == 1 && (temp->key + i.second) < (inh[i.first].begin()->second)->key )
 	 				head = Binomial_heap_decrease_key(head,inh[i.first].begin()->second, temp->key + i.second) ;
 
-	 			// 	cout<<"Aafter"<<endl ;
-	 			// 	for(int i = 0 ; i < v; i++)
-					// {
-					// 	for(auto j : inh[i])
-					// 		cout<<i<<" "<<j.first<<","<<j.second->nno<<"         ";
-					// 	cout<<endl ;
-					// }
-					// cout<<"End pri"<<endl ;
-	 		}
+	 		
 	 	}
 
-	 }
-
-
-			//printree(head) ;
 	
 	return 0;
 }
