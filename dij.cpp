@@ -304,9 +304,9 @@ void addEdge(vector<pair<lli, lli> > adj[], lli e1, lli e2, lli w)
 int main(int argc, char const *argv[])
 {
 
-	int v ;
+	int v,n_edges ;
 	lli e1,e2,w ;
-	cout<<"Enter the number of vertices in the graph (atleast 2): "<<endl ;
+	cout<<"\nEnter the number of vertices in the graph (atleast 2): " ;
 	cin>>v ;
 
 	node *head = NULL;
@@ -330,10 +330,28 @@ int main(int argc, char const *argv[])
  //    addEdge(adj, 7, 8, 7); 
 
 
-    addEdge(adj,0,1,5) ;
-    addEdge(adj,1,2,6) ;
-    addEdge(adj,2,3,2) ;
-    addEdge(adj,0,2,15) ;
+    // addEdge(adj,0,1,5) ;
+    // addEdge(adj,1,2,6) ;
+    // addEdge(adj,2,3,2) ;
+    // addEdge(adj,0,2,15) ;
+
+    cout<<"\nEnter the number of edges : " ;
+    cin>>n_edges ;
+
+    cout<<"\nEnter the edges (Vertices between 0 and "<< v-1<<" ) : "<<endl ;
+    for(int i = 0 ; i < n_edges; i++)
+    {
+    	cin>>e1>>e2>>w ;
+    	if(e1 < 0 || e1 > v-1 || e2 < 0 || e2 > v-1)
+    	{
+    		cout<<"Invalid input."<<endl ; ;
+    		i-- ;
+    		continue ;
+    	}
+    	
+
+    	addEdge(adj,e1,e2,w) ;
+    }
   
 	head = insert(head,0,0)  ;
 
@@ -343,9 +361,10 @@ int main(int argc, char const *argv[])
 		head = insert(head,INT_MAX,i) ;
 	}
 
+	cout<<"\nThe heap created initially with the given input : "<<endl ;
 	printree(head) ;
 
-
+	cout<<"\n" ;
 	
 	  while(head != NULL)
 	  {
@@ -356,7 +375,7 @@ int main(int argc, char const *argv[])
 		  
 
 
-		 cout<<endl<<temp->key<<" "<<temp->nno<<endl ;
+		 cout<<endl<<"Shortest distance to "<<temp->nno<<" frorm node 0 is :"<<" "<<temp->key<<endl ;
 	     inh[temp->nno].begin()->first = 0 ;
 
 	   
@@ -367,6 +386,7 @@ int main(int argc, char const *argv[])
 	 		
 	 	}
 
+	 cout<<"\n" ;
 	
 	return 0;
 }

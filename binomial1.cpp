@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector>
+#include <climits>
+#include <cstdlib>
 #define lli long long int
 
 using namespace std ;
@@ -8,6 +11,8 @@ struct node
 	lli key,degree ;
 	node *sibling,*child,*parent ;
 } ;
+
+vector<node *> vec ;
 
 void Binomial_link(node *y, node *z)
 {
@@ -168,8 +173,9 @@ node *Binomial_heap_extract_min( node *head)
 	else if(head->sibling == NULL)
 	{
 		node *temp = head ;
+		vec.push_back(temp) ;
 		head = reverse_children(head->child) ;
-		delete(temp) ;
+	//	delete(temp) ;
 		return head ;
 	}
 
@@ -188,11 +194,12 @@ node *Binomial_heap_extract_min( node *head)
 	if(head->key == min_value)
 	{
 		node *temp = head ;
+		vec.push_back(temp) ;
 		node *head1 = reverse_children(head->child) ;
 
 		head = head->sibling ;
 		head = Binomial_heap_union(head,head1) ;
-		delete(temp) ;
+	//	delete(temp) ;
 		return head;
 	}
 
@@ -210,11 +217,13 @@ node *Binomial_heap_extract_min( node *head)
 	}
 
 
+
 	prev_x->sibling = next_x ;
 	node *head1 = reverse_children(x->child) ;
 
 	head = Binomial_heap_union(head,head1) ;
-	delete(x) ;
+	vec.push_back(x) ;
+	//delete(x) ;
 	return head ;
 
 }
@@ -255,93 +264,147 @@ node *Binomial_heap_delete(node *head,node *nod)
 	return head ;
 }
 
+node *Insert(node *head)
+{
+	int n_nodes ;
+	cout<<"\nEnter the number of nodes to be inserted : ";
+	cin>>n_nodes ;
+
+	lli val ;
+
+	for(int i = 0; i < n_nodes; i++){
+	cout<<"\nEnter the value to be inserted : ";
+	cin>>val ;
+
+	head = insert(head,val) ;
+	cout<<"Insert successful."<<endl ;
+}
+
+	return head ;
+}
+
+node *search(node *head, lli val)
+{
+	node *temp = head ;
+
+	while(temp)
+	{
+		if(temp->key == val)
+			return temp ;
+		node * tp = search(temp->child,val) ;
+		if(tp)
+			return tp ;
+		temp = temp->sibling ;
+	}
+
+	return NULL ;
+}
+
+node *del(node *head)
+{
+	lli val ;
+	cout<<"Enter the value to be deleted : "<<endl ;
+	cin>>val ;
+
+	node *res = search(head,val) ;
+
+	if(res == NULL)
+		cout<<"No such node in heap."<<endl ;
+	else
+	{
+		head = Binomial_heap_delete(head,res) ;
+		cout<<"Node deleted successfuly"<<endl ;
+	}
+
+	return head ;
+
+}
+
+node *Extra(node *head)
+{
+	head = Binomial_heap_extract_min(head) ;
+	cout<<"The extracted node is : "<<vec[0]->key<<endl ;
+
+	vec.clear() ;
+	return head ;
+}
+
+node *Mer(node *head)
+{
+	node *head1 = NULL ;
+
+	cout<<"\nEnter the heap contents of the heap which is to be merged with the main heap."<<endl ;
+	head1 = Insert(head1) ;
+
+	cout<<"\nThe inserted heap is "<<endl ;
+	printree(head1) ;
+
+	cout<<"\nMerging the two heaps."<<endl ;
+	head = Binomial_heap_union(head,head1) ;
+
+	cout<<"\nThe merged heap is : "<<endl ;
+	printree(head) ;
+	cout<<"\n" ;
+
+	return head ;
+
+}
+
+
+node *Dec(node *head)
+{
+	lli val ;
+	cout<<"\nEnter the key of node whose key is to be decreased : " ;
+	cin>>val ;
+
+	node *res = search(head,val) ;
+	if(res == NULL)
+		cout<<"\nNo such node is present in the heap."<<endl ;
+	else 
+	{
+		lli n_key ;
+
+		cout<<"\nEnter the new key for that node : " ;
+		cin>>n_key ;
+		head = Binomial_heap_decrease_key(head,res,n_key) ;
+	}
+
+	return head ;
+}
+
 
 int main(int argc, char const *argv[])
 {
-	node *head,*head1 ;
+	node *head = NULL ;
 
-	// head = insert(head,10) ;
-	// head = insert(head,20) ;
-	// head = insert(head,30) ;
+	int n ;
 
-	// head = insert(head,40) ;
-	// head = insert(head,50) ;
-	// head = insert(head,60) ;
-	// head = insert(head,70) ;
-	// head = insert(head,80) ;
-	// head = insert(head,90) ;
-	// head = insert(head,100) ;
-	// head = insert(head,110) ;
-	// head = insert(head,120) ;
-	// head = insert(head,130) ;
+	do{
+		cout<<"\n1.Insert\n2.Delete\n3.Extract minimum\n4.Merge\n5.Decrease key\n6.Print heap\n7.Exit"<<endl ;
+		cin>> n ;
 
-	// head = Binomial_heap_decrease_key(head,head,1234234) ;
+		switch(n)
+		{
+			case 1 : head = Insert(head) ;
+					 break ;
+			case 2 : head = del(head) ;
+					 break ;
+			case 3 : head = Extra(head) ;
+					 break ;
+			case 4 : head = Mer(head) ;
+					 break ;
+			case 5 : head = Dec(head) ;
+					 break ;
+			case 6 :cout<<"\nThe heap is :\n" ; 
+					printree(head) ;
+					cout<<"\n" ;
+			case 7 : break ;
 
-//	printree(head) ;
-
-
-	clock_t t;
-	double t1 = 0,t2 = 0,t3 = 0,t4 = 0,t5 = 0;
-
-	
-
-		for(lli i = 0 ; i < 100000; i++)
-		{	
-		//cin>>value ;
-		head = insert(head,i) ;
-		head1 = insert(head1,10000000+i+1) ;
-
-
-
-		//cout<<i<<"\n" ;
+			default : cout<<"\nInvalid input."<<endl ;
 		}
-
- 	t = clock() ;
-
- 	head = Binomial_heap_union(head,head1) ;
- 	t =clock() - t ;
-
- 	cout<<"Merge "<<t<<"\n" ;
-
- 	double time= (double) t ;
- 	t1+=time ;
-
- 	t = clock() ;
- 	head = insert(head,10000000010101) ;
- 	t = clock() - t ;
-
- 	cout<<"Insert "<<t<<"\n" ;
-	 time = (double) t ;
-	 t2+=time ;
+	  }while(n!= 7) ;
 
 
-	t = clock() ;
-
-	head = Binomial_heap_extract_min(head) ;
-	t =clock() - t ;
-
-	cout<<"Extract "<<t<<"\n" ;
-
-
-	time = (double) t ;
-	t3+=time ;
-
-
-	t = clock() ;
-
-	head = Binomial_heap_delete(head,head) ;
-	t =clock() - t ;
-	cout<<"Delete "<<t<<"\n" ;
-
-	time = (double) t ;
-
-	t4+=time ;
-
-
-
-cout<<"Delete "<<t4<<"\n" ;
-
-// cout<<endl<<endl<<endl ;
 
 	return 0;
 }
