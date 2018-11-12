@@ -12,7 +12,6 @@ struct node
 	node *sibling,*child,*parent ;
 } ;
 
-vector<node *> vec ;
 
 void Binomial_link(node *y, node *z)
 {
@@ -173,7 +172,7 @@ node *Binomial_heap_extract_min( node *head)
 	else if(head->sibling == NULL)
 	{
 		node *temp = head ;
-		vec.push_back(temp) ;
+		cout<<"The minimum element extracted is : "<<temp->key<<endl ;
 		head = reverse_children(head->child) ;
 	//	delete(temp) ;
 		return head ;
@@ -194,7 +193,8 @@ node *Binomial_heap_extract_min( node *head)
 	if(head->key == min_value)
 	{
 		node *temp = head ;
-		vec.push_back(temp) ;
+		cout<<"The minimum element extracted is : "<<temp->key<<endl ;
+
 		node *head1 = reverse_children(head->child) ;
 
 		head = head->sibling ;
@@ -219,10 +219,11 @@ node *Binomial_heap_extract_min( node *head)
 
 
 	prev_x->sibling = next_x ;
+	cout<<"The minimum element extracted is : "<<x->key<<endl ;
 	node *head1 = reverse_children(x->child) ;
 
 	head = Binomial_heap_union(head,head1) ;
-	vec.push_back(x) ;
+	
 	//delete(x) ;
 	return head ;
 
@@ -323,9 +324,6 @@ node *del(node *head)
 node *Extra(node *head)
 {
 	head = Binomial_heap_extract_min(head) ;
-	cout<<"The extracted node is : "<<vec[0]->key<<endl ;
-
-	vec.clear() ;
 	return head ;
 }
 
