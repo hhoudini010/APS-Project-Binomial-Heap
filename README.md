@@ -8,16 +8,16 @@ The following instruction will help you how to copy and run the project on your 
 
 ### Steps to Run the programs.
 #### 1. AVL tree 
-To compile, type the command `g++ -std=c++11 AVL.cpp -o avl`
-To run, type `./avl`
+To compile, type the command `g++ -std=c++11 AVL.cpp -o avl` <br />
+To execute, type `./avl`
 To run 
 #### 2. Binomial heap
-To compile, type the command `g++ -std=c++11 binomial1.cpp -o binomial`
-To run, type `./binomial`
+To compile, type the command `g++ -std=c++11 binomial1.cpp -o binomial` <br />
+To execute, type `./binomial`
 
 #### 3. Dijkstra's Algorithm
-To compile, type the command `g++ -std=c++11 dij.cpp -o dij`
-To run, type `./dij`
+To compile, type the command `g++ -std=c++11 dij.cpp -o dij` <br />
+To execute, type `./dij`
 
 ### AVL Tree
 AVL Tree will contain only unique values.
