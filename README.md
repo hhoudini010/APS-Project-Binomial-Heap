@@ -9,8 +9,7 @@ The following instruction will help you how to copy and run the project on your 
 ### Steps to Run the programs.
 #### 1. AVL tree 
 To compile, type the command `g++ -std=c++11 AVL.cpp -o avl` <br />
-To execute, type `./avl`
-To run 
+To execute, type `./avl` 
 #### 2. Binomial heap
 To compile, type the command `g++ -std=c++11 binomial1.cpp -o binomial` <br />
 To execute, type `./binomial`
