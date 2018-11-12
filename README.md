@@ -8,7 +8,7 @@ The following instruction will help you how to copy and run the project on your 
 
 ### AVL Tree
 AVL Tree will contain only unique values.
-On successful compiltation, the program will have menu driven functionality in which the user needs to enter which functionality he/she needs to perform.
+On successful compiltation, the program will have a menu driven functionality in which the user needs to enter which functionality he/she needs to perform.
 #### AVL Operations are as follows
 ##### 1. Insert
   On selecting this operation the user needs to first enter the number of nodes he/she needs to insert into the AVL Tree and then            accordingly enter the node's value to be inserted in the AVL Tree.
