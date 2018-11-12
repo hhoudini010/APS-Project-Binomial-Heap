@@ -339,6 +339,7 @@ int main(int argc, char const *argv[])
     cin>>n_edges ;
 
     cout<<"\nEnter the edges (Vertices between 0 and "<< v-1<<" ) : "<<endl ;
+    cout<<"\nEnter edge details as vertex-1 vertex-2 weight "<<endl ;
     for(int i = 0 ; i < n_edges; i++)
     {
     	cin>>e1>>e2>>w ;

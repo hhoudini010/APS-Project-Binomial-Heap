@@ -5,14 +5,13 @@
 #define lli long long int
 
 using namespace std ;
-
+int sta = 0 ;
 struct node
 {
 	lli key,degree ;
 	node *sibling,*child,*parent ;
 } ;
 
-vector<node *> vec ;
 
 void Binomial_link(node *y, node *z)
 {
@@ -173,7 +172,8 @@ node *Binomial_heap_extract_min( node *head)
 	else if(head->sibling == NULL)
 	{
 		node *temp = head ;
-		vec.push_back(temp) ;
+		if(sta == 0)
+		cout<<"\nThe minimum extracted value is : "<<temp->key<<endl ;
 		head = reverse_children(head->child) ;
 	//	delete(temp) ;
 		return head ;
@@ -194,7 +194,8 @@ node *Binomial_heap_extract_min( node *head)
 	if(head->key == min_value)
 	{
 		node *temp = head ;
-		vec.push_back(temp) ;
+		if(sta == 0)
+		cout<<"\nThe minimum extracted value is : "<<temp->key<<endl ;
 		node *head1 = reverse_children(head->child) ;
 
 		head = head->sibling ;
@@ -222,7 +223,8 @@ node *Binomial_heap_extract_min( node *head)
 	node *head1 = reverse_children(x->child) ;
 
 	head = Binomial_heap_union(head,head1) ;
-	vec.push_back(x) ;
+	if(sta == 0)
+	cout<<"\nThe minimum extracted value is : "<<x->key<<endl ;
 	//delete(x) ;
 	return head ;
 
@@ -312,8 +314,10 @@ node *del(node *head)
 		cout<<"No such node in heap."<<endl ;
 	else
 	{
+		sta = 1 ;
 		head = Binomial_heap_delete(head,res) ;
 		cout<<"Node deleted successfuly"<<endl ;
+		sta = 0 ;
 	}
 
 	return head ;
@@ -323,9 +327,6 @@ node *del(node *head)
 node *Extra(node *head)
 {
 	head = Binomial_heap_extract_min(head) ;
-	cout<<"The extracted node is : "<<vec[0]->key<<endl ;
-
-	vec.clear() ;
 	return head ;
 }
 
@@ -408,9 +409,3 @@ int main(int argc, char const *argv[])
 
 	return 0;
 }
-
-
-
-
-
-
